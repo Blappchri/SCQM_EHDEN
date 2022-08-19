@@ -71,7 +71,6 @@ condition_occurrence<-conditions%>%
   select(-patient_id,-pat_uid)%>%
   distinct()%>%
   mutate(condition_occurrence_id=row_number())%>%
-  select(-condition_source_value)%>%
   select(-condition_id)%>%
   mutate(condition_start_date=impute_incomplete_dates(condition_start_date))
 

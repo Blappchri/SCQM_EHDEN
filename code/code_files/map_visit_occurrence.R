@@ -53,10 +53,10 @@ other_visits<-bind_rows(
      patient_id,
      visit_concept_id="32865",
      visit_start_date=date,
-     visit_end_date=date,
-     #2what could be a source value here?
+     visit_end_date=date
    )
- )%>%distinct()
+ )%>%distinct()%>%
+   mutate(visit_source_value="concept_not_applicable")
 
 visit_occurrence$visit_occurrence_id<-1:nrow(visit_occurrence)
  

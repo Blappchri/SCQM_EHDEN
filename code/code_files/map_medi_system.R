@@ -71,7 +71,8 @@ med_prepped<-medications_for_me%>%
       medication_route=="oral"~"4132161",
       medication_route=="subcutaneous"~"4142048"
     ),
-    source=paste(medication_id,adjustment_nr,snapshot,sep="_")
+    #source=paste(medication_id,adjustment_nr,snapshot,sep="_")
+    source=medication_generic_drug
     )%>%
   filter(!medication_end_date<medication_start_date)%>%
   filter(!as.numeric(medication_dose)==0)

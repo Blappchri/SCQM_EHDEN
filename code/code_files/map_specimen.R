@@ -10,7 +10,7 @@ specimen<-aliquots%>%
     )
   )%>%
   group_by(patient_id,aliquot_type,collection_date)%>%
-  summarize(n=n(),.groups = "drop")%>%
+  summarize(n=n(),rownum=min(rownum),.groups = "drop")%>%
   transmute(
     specimen_id=NA,
     person_id=NA,

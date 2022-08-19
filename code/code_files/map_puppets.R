@@ -55,7 +55,7 @@ for (a in 1:nrow(e_mapped)) {
         condition_type_concept_id="32879",
         condition_concept_id=e_mapped$enth[a]%>%as.character(),
         condition_end_date=condition_start_date,
-        condition_source_value=substr(e_mapped$example.name.in.source,17,200)
+        condition_source_value=substr(e_mapped$example.name.in.source[a],17,200)
       )
   )
 }
