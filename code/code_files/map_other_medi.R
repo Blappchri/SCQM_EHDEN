@@ -1,4 +1,4 @@
-#information about non-vital medications
+#mapping scattered information about medications which we also track, but are not included in the main system for vital medications. Some of this is PRO information, some doctor-based.
 
 drug_exposure<-nsaids%>%
   filter(nsaid_used=="yes")%>%

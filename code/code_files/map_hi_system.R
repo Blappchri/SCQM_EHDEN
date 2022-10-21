@@ -1,4 +1,6 @@
-#handles our HI system as well as main diagnosis
+#This files does two things that are only combined because my predecessor did it and I never cared enough to restructure:
+#   The main diagnosis for each patient is added as a condition. 
+#   All the information from out health issue system is added to their respective tables. That system is one of the few components that is independent of visits in our systems. It is pretty close to how OMOP events work, with the exception that we also have NO events marking a patient that is sure to have been healthy. We usually do not make the No Record->No Problem assumption.
 
 
 # derive condition_occurrence from patients

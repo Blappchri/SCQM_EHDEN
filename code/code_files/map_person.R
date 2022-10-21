@@ -1,3 +1,5 @@
+#Simple, we do not have much here
+
 person<-patients%>%
   transmute(
     person_id=1:nrow(patients),

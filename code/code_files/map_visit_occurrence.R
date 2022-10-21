@@ -1,11 +1,8 @@
+#creates entries for both visit-visits and occasions where patients answered app questionnaires since those seem to also count.
+
 visit_occurrence <- visits %>% 
   select(uid, patient_id, type_of_visit, type_of_consultation, visit_date, 
          institution) %>% 
-  #left_join( will do later
-  #  person %>% 
-  #    select(person_source_value, person_id),
-  #  by=c("patient_id"="person_source_value")
-  #) %>% 
   transmute(
     visit_occurrence_id=NA,
     uid,

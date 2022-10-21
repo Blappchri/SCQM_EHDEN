@@ -1,3 +1,5 @@
+#This contains some PRO scores which are both plentiful and easy to map. 
+
 measurements<-visits%>%transmute(
   patient_id,
   measurement_concept_id="44811520",
@@ -68,24 +70,5 @@ measurements<-basdai%>%transmute(
   measurement_source_value="basdai_score"
 )%>%distinct()%>%filter(!is.na(value_as_number))%>%bind_rows(measurements)
 
-measurements<-visits%>%transmute(
-  patient_id,
-  measurement_concept_id="4209078",
-  measurement_date=coalesce(impute_incomplete_dates(osteodensitometrie_date),visit_date),
-  measurement_type_concept_id="32879",
-  value_as_number=osteodensitometry_femoral_neck,
-  visit_uid=uid,
-  measurement_source_value="osteodensitometry_femoral_neck"
-)%>%distinct()%>%filter(!is.na(value_as_number))%>%bind_rows(measurements)
-
-measurements<-visits%>%transmute(
-  patient_id,
-  measurement_concept_id="35609591",
-  measurement_date=coalesce(impute_incomplete_dates(osteodensitometrie_date),visit_date),
-  measurement_type_concept_id="32879",
-  value_as_number=osteodensitometry_lumbar_spine,
-  visit_uid=uid,
-  measurement_source_value="osteodensitometry_lumbar_spine"
-)%>%distinct()%>%filter(!is.na(value_as_number))%>%bind_rows(measurements)
 
 

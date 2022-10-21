@@ -1,4 +1,6 @@
-#Some very straightforward lab stuff and the das
+#Maps some very straightforward lab stuff, the DAS and other easy clinical stuff
+# This file introduces the pattern that most of the rest of this code will have. At the time I felt that there were enough idiosyncrasies to everything that a function would be awkward. Surprisingly I have not *not* ended up regretting this decision during development, but it means that this code is a bit 'copy-paste'-ish.
+#Dates are mostly complete, but we apply a mid imputation everywhere just to be sure 
 
 measurements<-visits%>%transmute(
   patient_id,
@@ -80,6 +82,26 @@ measurements<-visits%>%transmute(
   value_as_number=y_gt,
   visit_uid=uid,
   measurement_source_value="y_gt"
+)%>%distinct()%>%filter(!is.na(value_as_number))%>%bind_rows(measurements)
+
+measurements<-visits%>%transmute(
+  patient_id,
+  measurement_concept_id="4209078",
+  measurement_date=coalesce(impute_incomplete_dates(osteodensitometrie_date),visit_date),
+  measurement_type_concept_id="32879",
+  value_as_number=osteodensitometry_femoral_neck,
+  visit_uid=uid,
+  measurement_source_value="osteodensitometry_femoral_neck"
+)%>%distinct()%>%filter(!is.na(value_as_number))%>%bind_rows(measurements)
+
+measurements<-visits%>%transmute(
+  patient_id,
+  measurement_concept_id="35609591",
+  measurement_date=coalesce(impute_incomplete_dates(osteodensitometrie_date),visit_date),
+  measurement_type_concept_id="32879",
+  value_as_number=osteodensitometry_lumbar_spine,
+  visit_uid=uid,
+  measurement_source_value="osteodensitometry_lumbar_spine"
 )%>%distinct()%>%filter(!is.na(value_as_number))%>%bind_rows(measurements)
 
 measurements<-visits%>%transmute(

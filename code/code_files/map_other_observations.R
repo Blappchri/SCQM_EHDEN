@@ -1,5 +1,5 @@
-#some relevant observations from elsewhere
-#finish source here
+#some things that belong in the observation table from scattered locations
+
 observation<-illness_mastering%>%
   select(-contains("freq"))%>%
   select(-exercise_regularly_no)%>%
@@ -80,6 +80,8 @@ observation<-socioeco%>%
     observation_source_value="scholar(bad name in original)"
   )%>%distinct()%>%bind_rows(observation)
 
+
+#We have the same Q multiple times due to how diagnoses work
 observation<-visits%>%
   filter(
     !is.na(global_patient_estimate_disease_activity)
@@ -131,142 +133,6 @@ observation<-radai5%>%
     observation_type_concept_id="32862",
     observation_source_value="global_patient_estimate_disease_activity"
   )%>%distinct()%>%bind_rows(observation)
-
-
-derive_smoking_status <- function(
-  vis,
-  socioeco,
-  euroqol,
-  timepoints=NULL,
-  mapping_distance=Inf
-) {
-  
-  if(!is.null(timepoints)){
-    vis<-vis%>%filter(patient_id%in%timepoints$patient_id)
-  }
-  
-  
-  vis_rel<-vis%>%
-    select(patient_id,visit_date,visit_uid=uid,smoking)#we cannot filter here since this is what we are joining on
-  socio_rel<-socioeco%>%
-    select(visit_uid,smoker)%>%
-    filter(!is.na(smoker))
-  euro_rel<-euroqol%>%
-    select(visit_uid,are_you_smoker_eq_5d)%>%
-    filter(!is.na(are_you_smoker_eq_5d))
-  
-  all_smoking<-vis_rel%>%#all Q are only asked at visits
-    left_join(socio_rel,by="visit_uid")%>%
-    left_join(euro_rel,by="visit_uid")%>%
-    filter(if_any(
-      contains("smok"),
-      ~!is.na(.))
-    )%>%
-    mutate( #I do not check if conflicting answers are a problem, but the order of precedence is current>former>past
-      smoking_summary=case_when(
-        smoker%in%c(
-          "i_am_currently_smoking",
-          "smoking_currently"
-        )~"current",
-        are_you_smoker_eq_5d=="smoking_currently"~"current",
-        smoking=="current"~"current",
-        smoker%in%c(
-          "a_former_smoker",
-          "i_am_a_former_smoker_for_more_than_a_year"
-        )~"former",
-        are_you_smoker_eq_5d=="a_former_smoker"~"former",
-        smoking=="past"~"former",
-        smoker%in%c(
-          "never_been_smoking",
-          "i_have_never_smoked"
-        )~"never",
-        are_you_smoker_eq_5d=="never_been_smoking"~"never",
-        smoking=="never"~"never",
-        TRUE~NA_character_
-      )
-    )%>%select(
-      -smoking,
-      -smoker,
-      -are_you_smoker_eq_5d
-    )
-  
-  if (is.null(timepoints)) {
-    return(all_smoking)
-  }
-  
-  joined<-all_smoking%>%
-    inner_join(timepoints,by="patient_id")%>%
-    mutate(key=paste0(patient_id,target))
-  
-  future<-joined%>%
-    filter(target<visit_date)%>%
-    group_by(patient_id,target)%>%
-    slice_min(visit_date,with_ties = FALSE)%>%
-    ungroup()%>%
-    mutate(
-      never_in_future=smoking_summary=="never"
-    )%>%
-    select(key,never_in_future)%>%
-    filter(never_in_future)
-  
-  past<-joined%>%
-    filter(target>visit_date)%>%
-    group_by(key)%>%
-    summarize(
-      smoked_in_past=any(smoking_summary!="never"),
-      .groups = "drop"
-    )%>%
-    ungroup()%>%
-    filter(smoked_in_past)
-  
-  # We discard conflicting cases and rely on mapping
-  past<-past%>%filter(!key%in%future$key)
-  future<-future%>%filter(!key%in%past$key)
-  
-  mapping<-joined%>%
-    filter(
-      !key%in%future#we stop mapping if future nevers exist
-    )%>%
-    mutate(
-      diff_abs=abs(as.Date(visit_date)-as.Date(target)),
-      diff=as.numeric(as.Date(visit_date)-as.Date(target))
-    )%>%
-    group_by(key)%>%
-    slice_min(diff_abs,with_ties = FALSE)%>%
-    ungroup()%>%
-    select(
-      key,
-      diff,
-      diff_abs,
-      mapped=smoking_summary
-    )
-  
-  out<-joined%>%
-    left_join(past,by="key")%>%
-    left_join(future,by="key")%>%
-    left_join(mapping,by="key")%>%
-    transmute(
-      patient_id=patient_id,
-      target=target,
-      smoking_summary=case_when(
-        !is.na(never_in_future)~"never",
-        diff_abs<=mapping_distance~mapped,#mapping trumps past if available
-        !is.na(smoked_in_past)~"not never",
-        diff_abs>mapping_distance~"no usable information",
-        TRUE~"Should not happen since one of the above should always apply"
-      ),
-      mapped_distance=case_when(
-        smoking_summary=="no usable information"~NA_real_,
-        smoking_summary=="not never"~-Inf,
-        !is.na(never_in_future)~Inf,
-        TRUE~diff
-      )
-    )
-  
-  if (!is.null(timepoints)) {
-    return(as.data.frame(out))
-  }
-}
 
 
 smoke_stuff<-derive_smoking_status(visits,socioeco,euroqol)

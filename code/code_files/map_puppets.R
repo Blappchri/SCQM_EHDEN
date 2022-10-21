@@ -1,3 +1,5 @@
+#One big source of information we have are so-called puppet filled out by doctors with detailed information about the respective body parts. It was actually too detailed for OMOP.
+
 j_path <- "help_files/joint_puppet_mapping.csv"
 j_mapped <- read.csv(j_path,sep = ";")
 
@@ -7,7 +9,7 @@ e_mapped <- read.csv(e_path,sep = ";")
 vis_swo<-visits%>%select(
   swollen_joints_body_entire_knee_joint_right:swollen_joints_body_entire_met__langeal_joint_of_fifth_toe_left)
 
-new_cond<-conditions[0,]
+new_cond<-conditions[0,]#just grab the strucutre
 
 for (a in 1:nrow(j_mapped)) {
   affected<-vis_swo[,a]=="affected"

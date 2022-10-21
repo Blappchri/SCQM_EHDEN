@@ -1,4 +1,7 @@
-#conditions from non-HI system sources
+#Things that belong in the conditions table but are not tracked in the HI system
+#Some are per-visit, some are PRO
+#Probably the most 'Why didn't you create a function file?'-file, but there is special stuff and exceptions everywhere.
+
 
 conditions<-mnyc_scoring%>%
   transmute(

@@ -1,4 +1,10 @@
 # Map our system for drugs of vital relevance
+# Here we needed to do a bunch of workarounds. OMOP expects apothecary information, which we do not have. What we have is:
+#from a to either b or their most recent visit a patients took dosage x of drug y each z days.
+# based on conversation on https://forums.ohdsi.org/ we do:
+# map to broader concepts instead of the packages
+# map our x dose per y days to weird dose batches
+# treat each stretch of unchanged medi usage as one big batch, meaning we have entries with kilograms of medication
 
 mapping_original_drugs <- "help_files/medication_system_mapping.csv"
 d.drugs <- read_csv(mapping_original_drugs)

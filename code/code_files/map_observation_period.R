@@ -1,5 +1,7 @@
+#This concept does not make much sense within a registry, so we just do something minimalist.
+
+
 # DECISION: Just keep it simple and use visit. Technically not even this should be considered an observation period since we do not track everything.
-# visits
 observation_period <- visits %>% 
   group_by(patient_id) %>% 
   summarise(

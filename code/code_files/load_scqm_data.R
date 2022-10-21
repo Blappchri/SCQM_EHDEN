@@ -1,4 +1,4 @@
-# This will definitely not run on your end and does not contain anything interesting.
+# This will definitely not run on your end and does not contain anything interesting except the creation of the fvis object that just grabs each patients earliest visit
 
 used_tables=c("patients","medications","radai5","haq","psada","euroqol","basfi","basdai","asas","sf_12","covid_19","mnyc_scoring","illness_mastering","socioeco","nsaids","steroids","health_issues","dlqi","diagnostic_image_sets","specimens","aliquots")
 

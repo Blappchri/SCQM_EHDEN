@@ -1,4 +1,4 @@
-#pretty straightforward
+#adds our biokits
 
 specimen<-aliquots%>%
   mutate(rownum=row_number())%>%#for the later source
@@ -21,6 +21,6 @@ specimen<-aliquots%>%
     ),
     specimen_date=collection_date,
     specimen_type_concept_id="32879",
-    specimen_source_value=paste0(snapshot,"_",rownum),#having an identifier seems useful, but we do not have one so we create one
+    specimen_source_value=paste0(snapshot,"_",rownum),#having an identifier seems useful, but we do not have one, so we create one
     quantity=n
   )%>%distinct()

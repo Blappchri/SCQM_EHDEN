@@ -1,16 +1,6 @@
-#filter out visits with no data
+#just some logistics
+#makes sure all the names are correct, all the ids are fully replaced etc.
 
-#distinct_everything
-
-#filter out locations with no relevant visits
-
-#filter out patients with no relevant data
-
-#add_proper_ids
-
-#check all the column dates and missingness
-
-#make sure there are no useless patients
 #nrow(person)
 person<-person%>%filter(patient_id%in%c(
   conditions$patient_id,device_exposure$patient_id,drug_exposure$patient_id,
