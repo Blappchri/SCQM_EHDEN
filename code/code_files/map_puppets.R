@@ -1,9 +1,9 @@
 #One big source of information we have are so-called puppet filled out by doctors with detailed information about the respective body parts. It was actually too detailed for OMOP.
 
-j_path <- "help_files/joint_puppet_mapping.csv"
+j_path <- "code/help_files/joint_puppet_mapping.csv"
 j_mapped <- read.csv(j_path,sep = ";")
 
-e_path <- "help_files/enth_puppet_mapping.csv"
+e_path <- "code/help_files/enth_puppet_mapping.csv"
 e_mapped <- read.csv(e_path,sep = ";")
 
 vis_swo<-visits%>%select(

@@ -9,7 +9,7 @@
 #A health_issue system similar to the medications. Does not use a standardised vocabulary unfortunately
 #Some weird odds and ends like biokits or images that should not really matter
 
-snapshot<-"20220801"
+snapshot<-"20230601"
 
 library(dplyr)
 library(lubridate)
@@ -53,6 +53,37 @@ source("code/code_files/map_specimen.R")
 
 source("code/code_files/finish_and_clean.R")
 
+tables=c(
+  "person",
+  "location",
+  "observation_period",
+  "visit_occurrence",
+  "condition_occurrence",
+  "drug_exposure",
+  "procedure_occurrence",
+  "device_exposure",
+  "measurement",
+  "observation",
+  "specimen"
+)
+
+tables_uncleaned=c(
+  "person",
+  "location",
+  "observation_period",
+  "visit_occurrence",
+  "condition_occurrence",
+  "drug_exposure",
+  "procedure_occurence",
+  "device_exposure",
+  "measurements",
+  "observation",
+  "specimen"
+)
+
+#snapshot so Pierre can fix smaller things:
+save(list = tables_uncleaned,file = "before_last_step.Rdata")
+
 source("code/code_files/proper_types.R")
 
 #for ease of checking, thus now commented out
@@ -71,20 +102,6 @@ source("code/code_files/proper_types.R")
 #   file = paste0("data/EHDEN_Data_",snapshot,".Rdata"))
 
 stor <- dbConnect(SQLite(), "data/SCQM_EHDEN.sqlite")
-
-tables=c(
-  "person",
-  "location",
-  "observation_period",
-  "visit_occurrence",
-  "condition_occurrence",
-  "drug_exposure",
-  "procedure_occurrence",
-  "device_exposure",
-  "measurement",
-  "observation",
-  "specimen"
-)
 
 for (a in tables) {
   dbWriteTable(stor, a, parse(text = a)%>%eval(),overwrite=TRUE)

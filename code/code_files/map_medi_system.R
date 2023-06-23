@@ -6,7 +6,7 @@
 # map our x dose per y days to weird dose batches
 # treat each stretch of unchanged medi usage as one big batch, meaning we have entries with kilograms of medication
 
-mapping_original_drugs <- "help_files/medication_system_mapping.csv"
+mapping_original_drugs <- "code/help_files/medication_system_mapping.csv"
 d.drugs <- read_csv(mapping_original_drugs)
 
 not_freetext<-medications%>%filter(!is.na(medication_drug_classification))%>%select(medication_id)%>%distinct()

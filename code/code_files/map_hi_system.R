@@ -72,7 +72,7 @@ first_cond_chuck<-patients_for_co%>%
     condition_start_date=as.character(condition_start_date)
   )
 # add information from health_issues
-ihi_path <- "help_files/health_issue_system_mapping.csv"
+ihi_path <- "code/help_files/health_issue_system_mapping.csv"
 d.ihi_mapped <- read_csv(ihi_path)
 
 d.ihi_data_mapped_joined <- health_issues %>% 
