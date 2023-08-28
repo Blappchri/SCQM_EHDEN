@@ -11,6 +11,7 @@ visit_occurrence <- visits %>%
       type_of_consultation%in%c("by_phone") ~ as.integer(5083),
     TRUE ~ NA_integer_),
     visit_start_date=visit_date,
+    visit_type_concept_id=9202,#We do not actually track this so it is kind of a lie, but the field is mandatory meaning we have no choice
     visit_end_date=visit_date,
     visit_concept_id="32879",
     patient_id,
@@ -50,6 +51,7 @@ other_visits<-bind_rows(
      patient_id,
      visit_concept_id="32865",
      visit_start_date=date,
+     visit_type_concept_id="5083",
      visit_end_date=date
    )
  )%>%distinct()%>%

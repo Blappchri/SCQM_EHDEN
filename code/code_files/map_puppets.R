@@ -62,4 +62,13 @@ for (a in 1:nrow(e_mapped)) {
   )
 }
 
+#to fix size limitation
+
+new_cond<-new_cond%>%mutate(
+  condition_source_value=case_when(
+    condition_source_value=="entire_spinous_process_of_fifth_lumbar_vertebra"~"ent_spinous_proc_5th_lum_vertebra",
+    TRUE~condition_source_value
+  )
+  )
+
 conditions<-bind_rows(conditions,new_cond%>%distinct())

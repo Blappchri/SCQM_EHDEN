@@ -4,4 +4,5 @@ location<-visits%>%select(institution)%>%distinct()%>%mutate(
   location_id=NA,
   country_concept_id="4330427",
   location_source_value=paste0(institution,"_",snapshot)
+  #location_source_value=NA
 )

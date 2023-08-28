@@ -26,19 +26,19 @@ patients_for_co <- patients %>%
     ),
     condition_source_value = case_when(
       diagnose_rheumatoid_arthritis=="yes" ~ 
-        "diagnose_rheumatoid_arthritis",
+        "diag_rheumatoid_arthritis",
       diagnose_ankylosing_spondylitis=="yes" ~ 
-        "diagnose_ankylosing_spondylitis",
+        "diag_ankylosing_spondylitis",
       diagnose_psoriasis_arthritis=="yes" ~ 
-        "diagnose_psoriasis_arthritis",
+        "diag_psoriasis_arthritis",
       diagnose_undifferentiated_arthritis=="yes" ~ 
-        "diagnose_undifferentiated_arthritis",
+        "diag_undifferentiated_arthritis",
       diagnose_giant_cell_arteritis=="yes"&diagnose_polymyalgia_rheumatica=="yes" ~
-        "diagnose_giant_cell_arteritis&diagnose_polymyalgia_rheumatica",
+        "diag_giant_cell_arteritis&polymyalgia_rheumatica",
       diagnose_giant_cell_arteritis=="yes"&is.na(diagnose_polymyalgia_rheumatica) ~
-        "diagnose_giant_cell_arteritis",
+        "diag_giant_cell_arteritis",
       is.na(diagnose_giant_cell_arteritis)&diagnose_polymyalgia_rheumatica=="yes" ~
-        "diagnose_polymyalgia_rheumatica",
+        "diag_polymyalgia_rheumatica",
       TRUE ~ NA_character_
     )) %>% 
   filter(!is.na(condition_concept_id))

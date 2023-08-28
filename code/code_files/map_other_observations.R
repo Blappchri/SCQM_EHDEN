@@ -22,7 +22,7 @@ observation<-socioeco%>%
     observation_concept_id="4076230",
     observation_date=substr(recording_time,1,10),
     observation_type_concept_id="32862",
-    observation_source_value="high_school_university_studies(bad name in original)"
+    observation_source_value="hs_university_studies"
   )%>%distinct()%>%bind_rows(observation)
 
 observation<-socioeco%>%
@@ -38,7 +38,7 @@ observation<-socioeco%>%
     observation_concept_id="43021808",
     observation_date=substr(recording_time,1,10),
     observation_type_concept_id="32862",
-    observation_source_value="higher_school_university|compulsory|vocational"
+    observation_source_value="hs_university|compulsory|vocational"
   )%>%distinct()%>%bind_rows(observation)
 
 observation<-socioeco%>%

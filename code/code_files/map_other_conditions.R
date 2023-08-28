@@ -178,7 +178,7 @@ conditions<-sf_12%>%
     condition_start_date=substr(recording_time,1,10),
     condition_end_date=substr(recording_time,1,10),
     condition_type_concept_id="32879",
-    condition_source_value="emotional_health_could_not_work_as_meticulously_as_usual"
+    condition_source_value="emotional_h_not_as_meticulous_as_usual"
   )%>%distinct()%>%bind_rows(conditions)
 
 conditions<-covid_19%>%
@@ -204,7 +204,7 @@ conditions<-covid_19%>%
     condition_start_date=date,
     condition_end_date=date,
     condition_type_concept_id="32879",
-    condition_source_value="positive_coronavirus_test|coronavirus_test_yes_pcr"
+    condition_source_value="pos_coronavirus_test|yes_pcr"
   )%>%distinct()%>%bind_rows(conditions)
 
 conditions<-patients%>%

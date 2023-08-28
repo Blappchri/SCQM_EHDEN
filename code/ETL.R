@@ -9,7 +9,7 @@
 #A health_issue system similar to the medications. Does not use a standardised vocabulary unfortunately
 #Some weird odds and ends like biokits or images that should not really matter
 
-snapshot<-"20230601"
+snapshot<-"20230801"
 
 library(dplyr)
 library(lubridate)
@@ -107,6 +107,9 @@ for (a in tables) {
   dbWriteTable(stor, a, parse(text = a)%>%eval(),overwrite=TRUE)
 }
 
+dbGetQuery(stor,"SELECT sql 
+FROM sqlite_schema 
+WHERE tbl_name = 'person';")
 
 #for the summary
 # output_summary<-data.frame(
