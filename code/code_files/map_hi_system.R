@@ -34,7 +34,7 @@ patients_for_co <- patients %>%
       diagnose_undifferentiated_arthritis=="yes" ~ 
         "diag_undifferentiated_arthritis",
       diagnose_giant_cell_arteritis=="yes"&diagnose_polymyalgia_rheumatica=="yes" ~
-        "diag_giant_cell_arteritis&polymyalgia_rheumatica",
+        "diag_GCA&polymyalgia_rheumatica",
       diagnose_giant_cell_arteritis=="yes"&is.na(diagnose_polymyalgia_rheumatica) ~
         "diag_giant_cell_arteritis",
       is.na(diagnose_giant_cell_arteritis)&diagnose_polymyalgia_rheumatica=="yes" ~
@@ -82,6 +82,15 @@ d.ihi_data_mapped_joined <- health_issues %>%
   ) %>% 
   left_join(d.ihi_mapped, by=c("sourceName")) %>% 
   filter(health_issue_present=="yes")  # remove cases if health_issues are not present or unknown!
+
+#manually shorten names
+d.ihi_data_mapped_joined <- d.ihi_data_mapped_joined%>%
+  mutate(
+    sourceName=case_when(
+      sourceName=="coagulopathies_purpura_other_hemorrhagic_diatheses"~"coagulopa_purpura_oth_hemorrhag_diath",
+      sourceName=="dysfunctions_water_electrolyte_balance_acid_alkaline_balance"~"dysfunc_water_electrol_acid_alka_bal"
+    )
+  )
 
 # get all domains (note that IHI contain conditions, procedures, devices,...)
 sort(unique(d.ihi_data_mapped_joined$domainId), na.last = TRUE)

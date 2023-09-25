@@ -51,7 +51,7 @@ other_visits<-bind_rows(
      patient_id,
      visit_concept_id="32865",
      visit_start_date=date,
-     visit_type_concept_id="5083",
+     visit_type_concept_id=5083,
      visit_end_date=date
    )
  )%>%distinct()%>%
