@@ -9,6 +9,7 @@ for (a in used_tables) {
   print(paste0("loading ",a))
   tab_a<-load_sql_table(a,con,consent = "loose")
   assign(a,tab_a)
+  rm(tab_a)
 }
 print(paste0("loading visits"))
 #requires special option

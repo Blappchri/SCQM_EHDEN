@@ -31,8 +31,8 @@ conditions<-psada%>%
   transmute(
     patient_id,
     condition_concept_id="4170143",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(authored,1,10),
+    condition_end_date=substr(authored,1,10),
     condition_type_concept_id="32862",
     condition_source_value="symptoms_respiratory_tract_infection"
   )%>%distinct()%>%bind_rows(conditions)
@@ -42,8 +42,8 @@ conditions<-psada%>%
   transmute(
     patient_id,
     condition_concept_id="196523",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(authored,1,10),
+    condition_end_date=substr(authored,1,10),
     condition_type_concept_id="32862",
     condition_source_value="symptoms_diarrhea"
   )%>%distinct()%>%bind_rows(conditions)
@@ -53,8 +53,8 @@ conditions<-psada%>%
   transmute(
     patient_id,
     condition_concept_id="200219",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(authored,1,10),
+    condition_end_date=substr(authored,1,10),
     condition_type_concept_id="32862",
     condition_source_value="symptoms_abdominal_pain"
   )%>%distinct()%>%bind_rows(conditions)
@@ -65,8 +65,8 @@ conditions<-visits%>%
   transmute(
     patient_id,
     condition_concept_id="45757505",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(visit_date,1,10),
+    condition_end_date=substr(visit_date,1,10),
     condition_type_concept_id="32879",
     condition_source_value="menopause_state_perimenopausal"
   )%>%distinct()%>%bind_rows(conditions)
@@ -76,8 +76,8 @@ conditions<-visits%>%
   transmute(
     patient_id,
     condition_concept_id="4295261",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(visit_date,1,10),
+    condition_end_date=substr(visit_date,1,10),
     condition_type_concept_id="32879",
     condition_source_value="menopause_state_postmenopausal"
   )%>%distinct()%>%bind_rows(conditions)
@@ -93,8 +93,8 @@ conditions<-visits%>%
   transmute(
     patient_id,
     condition_concept_id="4063431",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(visit_date,1,10),
+    condition_end_date=substr(visit_date,1,10),
     condition_type_concept_id="32879",
     condition_source_value="physician_global_skin_manifestation"
   )%>%distinct()%>%bind_rows(conditions)
@@ -108,8 +108,8 @@ conditions<-visits%>%
   transmute(
     patient_id,
     condition_concept_id="4031649",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(visit_date,1,10),
+    condition_end_date=substr(visit_date,1,10),
     condition_type_concept_id="32879",
     condition_source_value="nail_manifestation-oilnail|pitted|onycholysis"
   )%>%distinct()%>%bind_rows(conditions)
@@ -119,8 +119,8 @@ conditions<-sf_12%>%
   transmute(
     patient_id,
     condition_concept_id="4200822",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(authored,1,10),
+    condition_end_date=substr(authored,1,10),
     condition_type_concept_id="32879",
     condition_source_value="climbing_several_stairs-limited a lot"
   )%>%distinct()%>%bind_rows(conditions)
@@ -130,8 +130,8 @@ conditions<-sf_12%>%
   transmute(
     patient_id,
     condition_concept_id="4047207",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(authored,1,10),
+    condition_end_date=substr(authored,1,10),
     condition_type_concept_id="32879",
     condition_source_value="health_in_general-excellent|very_good"
   )%>%distinct()%>%bind_rows(conditions)
@@ -141,8 +141,8 @@ conditions<-sf_12%>%
   transmute(
     patient_id,
     condition_concept_id="4047208",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(authored,1,10),
+    condition_end_date=substr(authored,1,10),
     condition_type_concept_id="32879",
     condition_source_value="health_in_general-less_good"
   )%>%distinct()%>%bind_rows(conditions)
@@ -153,8 +153,8 @@ conditions<-sf_12%>%
   transmute(
     patient_id,
     condition_concept_id="4047705",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(authored,1,10),
+    condition_end_date=substr(authored,1,10),
     condition_type_concept_id="32879",
     condition_source_value="health_in_general-good"
   )%>%distinct()%>%bind_rows(conditions)
@@ -164,8 +164,8 @@ conditions<-sf_12%>%
   transmute(
     patient_id,
     condition_concept_id="4047986",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(authored,1,10),
+    condition_end_date=substr(authored,1,10),
     condition_type_concept_id="32879",
     condition_source_value="health_in_general-bad"
   )%>%distinct()%>%bind_rows(conditions)
@@ -175,8 +175,8 @@ conditions<-sf_12%>%
   transmute(
     patient_id,
     condition_concept_id="4328349",
-    condition_start_date=substr(recording_time,1,10),
-    condition_end_date=substr(recording_time,1,10),
+    condition_start_date=substr(authored,1,10),
+    condition_end_date=substr(authored,1,10),
     condition_type_concept_id="32879",
     condition_source_value="emotional_h_not_as_meticulous_as_usual"
   )%>%distinct()%>%bind_rows(conditions)
@@ -195,7 +195,7 @@ conditions<-covid_19%>%
     date=coalesce(
       positive_coronavirus_test_date,
       flu_like_coronavirus_test_date,
-      substr(recording_time,1,10))
+      substr(authored,1,10))
   )%>%
   filter(!is.na(date))%>%
   transmute(

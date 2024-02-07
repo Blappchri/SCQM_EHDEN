@@ -7,7 +7,7 @@ observation<-illness_mastering%>%
   transmute(
     patient_id,
     observation_concept_id="4026921",
-    observation_date=substr(recording_time,1,10),
+    observation_date=substr(authored,1,10),
     observation_type_concept_id="32862",
     observation_source_value="exercise_regularily_no"
   )%>%distinct()%>%bind_rows(observation)
@@ -20,7 +20,7 @@ observation<-socioeco%>%
   transmute(
     patient_id,
     observation_concept_id="4076230",
-    observation_date=substr(recording_time,1,10),
+    observation_date=substr(authored,1,10),
     observation_type_concept_id="32862",
     observation_source_value="hs_university_studies"
   )%>%distinct()%>%bind_rows(observation)
@@ -36,7 +36,7 @@ observation<-socioeco%>%
   transmute(
     patient_id,
     observation_concept_id="43021808",
-    observation_date=substr(recording_time,1,10),
+    observation_date=substr(authored,1,10),
     observation_type_concept_id="32862",
     observation_source_value="hs_university|compulsory|vocational"
   )%>%distinct()%>%bind_rows(observation)
@@ -51,7 +51,7 @@ observation<-socioeco%>%
   transmute(
     patient_id,
     observation_concept_id="4022069",
-    observation_date=substr(recording_time,1,10),
+    observation_date=substr(authored,1,10),
     observation_type_concept_id="32862",
     observation_source_value="pensioned"
   )%>%distinct()%>%bind_rows(observation)
@@ -63,7 +63,7 @@ observation<-socioeco%>%
   transmute(
     patient_id,
     observation_concept_id="40485425",
-    observation_date=substr(recording_time,1,10),
+    observation_date=substr(authored,1,10),
     observation_type_concept_id="32862",
     observation_source_value="house_person(bad name in original)"
   )%>%distinct()%>%bind_rows(observation)
@@ -75,7 +75,7 @@ observation<-socioeco%>%
   transmute(
     patient_id,
     observation_concept_id="4277918",
-    observation_date=substr(recording_time,1,10),
+    observation_date=substr(authored,1,10),
     observation_type_concept_id="32862",
     observation_source_value="scholar(bad name in original)"
   )%>%distinct()%>%bind_rows(observation)
@@ -103,7 +103,7 @@ observation<-basdai%>%
     patient_id,
     value_as_number=global_patient_estimate_disease_activity,
     observation_concept_id="46235641",
-    observation_date=substr(recording_time,1,10),
+    observation_date=substr(authored,1,10),
     observation_type_concept_id="32862",
     observation_source_value="global_patient_estimate_disease_activity"
   )%>%distinct()%>%bind_rows(observation)
@@ -116,7 +116,7 @@ observation<-psada%>%
     patient_id,
     value_as_number=global_patient_estimate_disease_activity,
     observation_concept_id="46235641",
-    observation_date=substr(recording_time,1,10),
+    observation_date=substr(authored,1,10),
     observation_type_concept_id="32862",
     observation_source_value="global_patient_estimate_disease_activity"
   )%>%distinct()%>%bind_rows(observation)
@@ -129,7 +129,7 @@ observation<-radai5%>%
     patient_id,
     value_as_number=global_patient_estimate_disease_activity,
     observation_concept_id="46235641",
-    observation_date=substr(recording_time,1,10),
+    observation_date=substr(authored,1,10),
     observation_type_concept_id="32862",
     observation_source_value="global_patient_estimate_disease_activity"
   )%>%distinct()%>%bind_rows(observation)
@@ -158,7 +158,7 @@ observation<-radai5%>%
     patient_id,
     value_as_string=morning_stiffness_duration_radai,
     observation_concept_id="40483597",
-    observation_date=substr(recording_time,1,10),
+    observation_date=substr(authored,1,10),
     observation_type_concept_id="32862",
     observation_source_value="morning_stiffness_duration"
   )%>%distinct()%>%bind_rows(observation)
@@ -176,7 +176,7 @@ observation<-basdai%>%
       basdai_6==10~"more_than_2_hours"
     ),
     observation_concept_id="40483597",
-    observation_date=substr(recording_time,1,10),
+    observation_date=substr(authored,1,10),
     observation_type_concept_id="32862",
     observation_source_value="basdai6"
   )%>%distinct()%>%bind_rows(observation)

@@ -68,7 +68,7 @@ sourceCode,sourceName,sourceFrequency,sourceAutoAssignedConceptIds,matchScore,ma
 ,other_cardiovascular_disease,-1,,0.45,APPROVED,APPROVED,,0,134057,Disorder of cardiovascular system,Condition,MAPS_TO,,,0,
 ,spinal_column_operation,-1,,0.45,APPROVED,APPROVED,,0,4311038,Operative procedure on spinal structure,Procedure,MAPS_TO,,,0,
 ,lupus_erythematodes,-1,,0.46,APPROVED,APPROVED,,0,255891,Lupus erythematosus,Condition,MAPS_TO,,,0,
-,shoulder_surgery,-1,,0.46,APPROVED,APPROVED,,0,44782503,Operative procedure on region of shoulder girdle,Procedure,MAPS_TO,,,0,
+,shoulder_surgery,-1,,0.46,APPROVED,APPROVED,,0,4303053,Operative procedure on region of shoulder girdle,Procedure,MAPS_TO,,,0,
 ,adrenal_disease,-1,,0.46,APPROVED,APPROVED,,0,193165,Disorder of adrenal gland,Condition,MAPS_TO,,,0,
 ,platelets_anomalies,-1,,0.46,APPROVED,APPROVED,,0,4332151,Platelet disorder,Condition,MAPS_TO,,,0,
 ,pulmonary_cancer,-1,,0.47,APPROVED,APPROVED,,0,4128888,Neoplasm of lung,Condition,MAPS_TO,,,0,

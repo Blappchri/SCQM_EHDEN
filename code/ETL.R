@@ -9,7 +9,7 @@
 #A health_issue system similar to the medications. Does not use a standardised vocabulary unfortunately
 #Some weird odds and ends like biokits or images that should not really matter
 
-snapshot<-"20230801"
+snapshot<-"2023-12-01"
 
 library(dplyr)
 library(lubridate)
@@ -83,6 +83,8 @@ tables_uncleaned=c(
 
 #snapshot so Pierre can fix smaller things:
 save(list = tables_uncleaned,file = "before_last_step.Rdata")
+
+warning("at this point move to remote instance!")
 
 source("code/code_files/proper_types.R")
 

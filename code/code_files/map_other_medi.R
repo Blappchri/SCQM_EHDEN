@@ -5,8 +5,8 @@ drug_exposure<-nsaids%>%
   transmute(
     patient_id,
     drug_concept_id="4156857",
-    drug_exposure_start_date=substr(recording_time,1,10),
-    drug_exposure_end_date=substr(recording_time,1,10),
+    drug_exposure_start_date=substr(date,1,10),
+    drug_exposure_end_date=substr(date,1,10),
     drug_type_concept_id="32862",
     drug_source_value="nsaid_used-yes"
   )%>%distinct()%>%bind_rows(drug_exposure)
@@ -16,8 +16,8 @@ drug_exposure<-steroids%>%
   transmute(
     patient_id,
     drug_concept_id="4024511",
-    drug_exposure_start_date=substr(recording_time,1,10),
-    drug_exposure_end_date=substr(recording_time,1,10),
+    drug_exposure_start_date=substr(authored,1,10),
+    drug_exposure_end_date=substr(authored,1,10),
     drug_type_concept_id="32862",
     drug_source_value="steroids_used_yes"
   )%>%distinct()%>%bind_rows(drug_exposure)
@@ -70,3 +70,4 @@ drug_exposure<-visits%>%
     visit_occurrence_id=uid,
     drug_source_value="antidepressants"
   )%>%distinct()%>%bind_rows(drug_exposure)
+

@@ -3,7 +3,7 @@
 measurements<-visits%>%transmute(
   patient_id,
   measurement_concept_id="44811520",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(visit_date,1,10),
   measurement_type_concept_id="4161183",
   value_as_number=basmi_score,
   visit_uid=uid,
@@ -13,7 +13,7 @@ measurements<-visits%>%transmute(
 measurements<-radai5%>%transmute(
   patient_id,
   measurement_concept_id="40481048",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(authored,1,10),
   measurement_type_concept_id="32862",
   value_as_number=radai5_score,
   visit_uid,
@@ -22,8 +22,8 @@ measurements<-radai5%>%transmute(
 
 measurements<-haq%>%transmute(
   patient_id,
-  measurement_concept_id="3546804",
-  measurement_date=substr(recording_time,1,10),
+  measurement_concept_id="4164977",
+  measurement_date=substr(authored,1,10),
   measurement_type_concept_id="32862",
   value_as_number=haq_score,
   visit_uid,
@@ -33,7 +33,7 @@ measurements<-haq%>%transmute(
 measurements<-euroqol%>%transmute(
   patient_id,
   measurement_concept_id="44807984",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(authored,1,10),
   measurement_type_concept_id="32862",
   value_as_number=euroqol_score,
   visit_uid,
@@ -43,7 +43,7 @@ measurements<-euroqol%>%transmute(
 measurements<-dlqi%>%transmute(
   patient_id,
   measurement_concept_id="4167755",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(authored,1,10),
   measurement_type_concept_id="32862",
   value_as_number=dlqi_score,
   visit_uid,
@@ -53,7 +53,7 @@ measurements<-dlqi%>%transmute(
 measurements<-basfi%>%transmute(
   patient_id,
   measurement_concept_id="44811513",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(authored,1,10),
   measurement_type_concept_id="32862",
   value_as_number=basfi_score,
   visit_uid,
@@ -63,7 +63,7 @@ measurements<-basfi%>%transmute(
 measurements<-basdai%>%transmute(
   patient_id,
   measurement_concept_id="4179958",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(authored,1,10),
   measurement_type_concept_id="32862",
   value_as_number=basdai_score,
   visit_uid,

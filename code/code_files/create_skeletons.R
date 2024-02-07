@@ -1,4 +1,4 @@
-#Creating all the empty object (expect locations, I guess) in a separate step made testing easier.
+#Creating all the empty object (except locations, I guess) in a separate step made testing easier.
 
 conditions <- data.frame(
   condition_id=NA,

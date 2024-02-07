@@ -5,7 +5,7 @@
 measurements<-visits%>%transmute(
   patient_id,
   measurement_concept_id="4099154",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(visit_date,1,10),
   measurement_type_concept_id="32879",
   unit_concept_id="9529",
   value_as_number=weight_kg,
@@ -16,7 +16,7 @@ measurements<-visits%>%transmute(
 measurements<-visits%>%transmute(
   patient_id,
   measurement_concept_id="4153000",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(visit_date,1,10),
   measurement_type_concept_id="32879",
   unit_concept_id="8713",
   value_as_number=coalesce(hb,hemoglobin/10),
@@ -27,7 +27,7 @@ measurements<-visits%>%transmute(
 measurements<-visits%>%transmute(
   patient_id,
   measurement_concept_id="37393853",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(visit_date,1,10),
   measurement_type_concept_id="32879",
   unit_concept_id="8752",
   value_as_number=bsr,
@@ -40,7 +40,7 @@ measurements<-visits%>%
   transmute(
   patient_id,
   measurement_concept_id="4208414",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(visit_date,1,10),
   measurement_type_concept_id="32879",
   unit_concept_id="8751",
   value_as_number=crp,
@@ -54,7 +54,7 @@ measurements<-visits%>%
 measurements<-visits%>%transmute(
   patient_id,
   measurement_concept_id="4146380",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(visit_date,1,10),
   measurement_type_concept_id="32879",
   unit_concept_id="8645",
   value_as_number=gpt_and_or_alat,
@@ -65,7 +65,7 @@ measurements<-visits%>%transmute(
 measurements<-visits%>%transmute(
   patient_id,
   measurement_concept_id="4324383",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(visit_date,1,10),
   measurement_type_concept_id="32879",
   unit_concept_id="8749",
   value_as_number=kreatinin_value,
@@ -76,7 +76,7 @@ measurements<-visits%>%transmute(
 measurements<-visits%>%transmute(
   patient_id,
   measurement_concept_id="4289475",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(visit_date,1,10),
   measurement_type_concept_id="32879",
   unit_concept_id="8645",
   value_as_number=y_gt,
@@ -107,7 +107,7 @@ measurements<-visits%>%transmute(
 measurements<-visits%>%transmute(
   patient_id,
   measurement_concept_id="3036277",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(visit_date,1,10),
   measurement_type_concept_id="32879",
   unit_concept_id="8582",
   value_as_number=height_cm,
@@ -118,7 +118,7 @@ measurements<-visits%>%transmute(
 measurements<-visits%>%transmute(
   patient_id,
   measurement_concept_id="40482839",
-  measurement_date=substr(recording_time,1,10),
+  measurement_date=substr(visit_date,1,10),
   measurement_type_concept_id="32879",
   value_as_number=coalesce(das283crp_score,das283bsr_score),
   visit_uid=uid,
