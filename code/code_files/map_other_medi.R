@@ -47,7 +47,7 @@ drug_exposure<-visits%>%
     ))%>%
   transmute(
     patient_id,
-    drug_concept_id="4306040",
+    drug_concept_id="1125315",
     drug_exposure_start_date=visit_date,
     drug_exposure_end_date=visit_date,
     drug_type_concept_id="32851",

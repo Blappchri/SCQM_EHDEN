@@ -135,7 +135,7 @@ medication_normal<-med_prepped%>%
     days_supply=duration,
     drug_exposure_start_date=medication_start_date,
     drug_exposure_end_date=medication_start_date,
-    quantity=freq_in_days*medication_dose*duration,
+    quantity=medication_dose*(duration/freq_in_days),
     drug_type_concept_id="32879",
     drug_source_value=source,
     route_concept_id=route
