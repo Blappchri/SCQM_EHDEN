@@ -181,3 +181,82 @@ observation<-basdai%>%
     observation_source_value="basdai6"
   )%>%distinct()%>%bind_rows(observation)
 
+observation<-visits%>%
+  filter(menopause_state=="perimenopausal")%>%
+  transmute(
+    patient_id,
+    observation_concept_id="45757505",
+    observation_date=substr(visit_date,1,10),
+    observation_type_concept_id="32879",
+    observation_source_value="menopause_state_perimenopausal"
+  )%>%distinct()%>%bind_rows(observation)
+
+observation<-sf_12%>%
+  filter(emotional_health_could_not_work_as_meticulously_as_usual_sf_36=="yes")%>%
+  transmute(
+    patient_id,
+    observation_concept_id="4328349",
+    observation_date=substr(authored,1,10),
+    observation_type_concept_id="32879",
+    observation_source_value="emotional_h_not_as_meticulous_as_usual"
+  )%>%distinct()%>%bind_rows(observation)
+
+observation<-visits%>%
+  filter(menopause_state=="postmenopausal")%>%
+  transmute(
+    patient_id,
+    observation_concept_id="4295261",
+    observation_date=substr(visit_date,1,10),
+    observation_type_concept_id="32879",
+    observation_source_value="menopause_state_postmenopausal"
+  )%>%distinct()%>%bind_rows(observation)
+
+observation<-sf_12%>%
+  filter(climbing_several_stairs_sf_36=="yes_limited_a_lot")%>%
+  transmute(
+    patient_id,
+    observation_concept_id="4200822",
+    observation_date=substr(authored,1,10),
+    observation_type_concept_id="32879",
+    observation_source_value="climbing_several_stairs-limited a lot"
+  )%>%distinct()%>%bind_rows(observation)
+
+observation<-sf_12%>%
+  filter(health_in_general_sf_36%in%c("bad"))%>%
+  transmute(
+    patient_id,
+    observation_concept_id="4047986",
+    observation_date=substr(authored,1,10),
+    observation_type_concept_id="32879",
+    observation_source_value="health_in_general-bad"
+  )%>%distinct()%>%bind_rows(observation)
+
+observation<-sf_12%>%
+  filter(health_in_general_sf_36%in%c("good"))%>%
+  transmute(
+    patient_id,
+    observation_concept_id="4047705",
+    observation_date=substr(authored,1,10),
+    observation_type_concept_id="32879",
+    observation_source_value="health_in_general-good"
+  )%>%distinct()%>%bind_rows(observation)
+
+observation<-sf_12%>%
+  filter(health_in_general_sf_36%in%c("less_good"))%>%
+  transmute(
+    patient_id,
+    observation_concept_id="4047208",
+    observation_date=substr(authored,1,10),
+    observation_type_concept_id="32879",
+    observation_source_value="health_in_general-less_good"
+  )%>%distinct()%>%bind_rows(observation)
+
+observation<-sf_12%>%
+  filter(health_in_general_sf_36%in%c("excellent","very_good"))%>%
+  transmute(
+    patient_id,
+    observation_concept_id="4047207",
+    observation_date=substr(authored,1,10),
+    observation_type_concept_id="32879",
+    observation_source_value="health_in_general-excellent|very_good"
+  )%>%distinct()%>%bind_rows(observation)

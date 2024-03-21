@@ -96,7 +96,7 @@ measurements<-visits%>%transmute(
 
 measurements<-visits%>%transmute(
   patient_id,
-  measurement_concept_id="35609591",
+  measurement_concept_id="37174518",
   measurement_date=coalesce(impute_incomplete_dates(osteodensitometrie_date),visit_date),
   measurement_type_concept_id="32879",
   value_as_number=osteodensitometry_lumbar_spine,
@@ -139,4 +139,50 @@ measurements<-patients%>%left_join(fvis)%>%transmute(
   measurement_source_value="anti_ccp"
 )%>%distinct()%>%filter(!is.na(value_as_concept_id))%>%bind_rows(measurements)
 
+measurements<-patients%>%
+  filter(hla_b27=="negative")%>%
+  left_join(fvis)%>%
+  transmute(
+    patient_id,
+    measurement_concept_id="4192945",
+    measurement_date=substr(visit_date,1,10),
+    measurement_type_concept_id="32879",
+    measurement_source_value="hla_b27_negative",
+    value_as_concept_id="9189"
+  )%>%distinct()%>%bind_rows(measurements)
 
+measurements<-patients%>%
+  filter(hla_b27=="positive")%>%
+  left_join(fvis)%>%
+  transmute(
+    patient_id,
+    measurement_concept_id="4192945",
+    measurement_date=substr(visit_date,1,10),
+    measurement_type_concept_id="32879",
+    measurement_source_value="hla_b27_positive",
+    value_as_concept_id="9191"
+  )%>%distinct()%>%bind_rows(measurements)
+
+measurements<-patients%>%
+  filter(ra_crit_rheumatoid_factor=="positive")%>%
+  left_join(fvis)%>%
+  transmute(
+    patient_id,
+    measurement_concept_id="4204380",
+    measurement_date=substr(visit_date,1,10),
+    measurement_type_concept_id="32879",
+    measurement_source_value="ra_crit_rheumatoid_factor_positive",
+    value_as_concept_id="9191"
+  )%>%distinct()%>%bind_rows(measurements)
+
+measurements<-patients%>%
+  filter(ra_crit_rheumatoid_factor=="negative")%>%
+  left_join(fvis)%>%
+  transmute(
+    patient_id,
+    measurement_concept_id="4204380",
+    measurement_date=substr(visit_date,1,10),
+    measurement_type_concept_id="32879",
+    measurement_source_value="ra_crit_rheumatoid_factor_negative",
+    value_as_concept_id="9189"
+  )%>%distinct()%>%bind_rows(measurements)

@@ -61,28 +61,6 @@ conditions<-psada%>%
 
 
 conditions<-visits%>%
-  filter(menopause_state=="perimenopausal")%>%
-  transmute(
-    patient_id,
-    condition_concept_id="45757505",
-    condition_start_date=substr(visit_date,1,10),
-    condition_end_date=substr(visit_date,1,10),
-    condition_type_concept_id="32879",
-    condition_source_value="menopause_state_perimenopausal"
-  )%>%distinct()%>%bind_rows(conditions)
-
-conditions<-visits%>%
-  filter(menopause_state=="postmenopausal")%>%
-  transmute(
-    patient_id,
-    condition_concept_id="4295261",
-    condition_start_date=substr(visit_date,1,10),
-    condition_end_date=substr(visit_date,1,10),
-    condition_type_concept_id="32879",
-    condition_source_value="menopause_state_postmenopausal"
-  )%>%distinct()%>%bind_rows(conditions)
-
-conditions<-visits%>%
   filter(physician_global_skin_manifestation%in%c(
     "medium_infestation",
     "medium_to_strong_infestation",
@@ -114,73 +92,6 @@ conditions<-visits%>%
     condition_source_value="nail_manifestation-oilnail|pitted|onycholysis"
   )%>%distinct()%>%bind_rows(conditions)
 
-conditions<-sf_12%>%
-  filter(climbing_several_stairs_sf_36=="yes_limited_a_lot")%>%
-  transmute(
-    patient_id,
-    condition_concept_id="4200822",
-    condition_start_date=substr(authored,1,10),
-    condition_end_date=substr(authored,1,10),
-    condition_type_concept_id="32879",
-    condition_source_value="climbing_several_stairs-limited a lot"
-  )%>%distinct()%>%bind_rows(conditions)
-
-conditions<-sf_12%>%
-  filter(health_in_general_sf_36%in%c("excellent","very_good"))%>%
-  transmute(
-    patient_id,
-    condition_concept_id="4047207",
-    condition_start_date=substr(authored,1,10),
-    condition_end_date=substr(authored,1,10),
-    condition_type_concept_id="32879",
-    condition_source_value="health_in_general-excellent|very_good"
-  )%>%distinct()%>%bind_rows(conditions)
-
-conditions<-sf_12%>%
-  filter(health_in_general_sf_36%in%c("less_good"))%>%
-  transmute(
-    patient_id,
-    condition_concept_id="4047208",
-    condition_start_date=substr(authored,1,10),
-    condition_end_date=substr(authored,1,10),
-    condition_type_concept_id="32879",
-    condition_source_value="health_in_general-less_good"
-  )%>%distinct()%>%bind_rows(conditions)
-
-
-conditions<-sf_12%>%
-  filter(health_in_general_sf_36%in%c("good"))%>%
-  transmute(
-    patient_id,
-    condition_concept_id="4047705",
-    condition_start_date=substr(authored,1,10),
-    condition_end_date=substr(authored,1,10),
-    condition_type_concept_id="32879",
-    condition_source_value="health_in_general-good"
-  )%>%distinct()%>%bind_rows(conditions)
-
-conditions<-sf_12%>%
-  filter(health_in_general_sf_36%in%c("bad"))%>%
-  transmute(
-    patient_id,
-    condition_concept_id="4047986",
-    condition_start_date=substr(authored,1,10),
-    condition_end_date=substr(authored,1,10),
-    condition_type_concept_id="32879",
-    condition_source_value="health_in_general-bad"
-  )%>%distinct()%>%bind_rows(conditions)
-
-conditions<-sf_12%>%
-  filter(emotional_health_could_not_work_as_meticulously_as_usual_sf_36=="yes")%>%
-  transmute(
-    patient_id,
-    condition_concept_id="4328349",
-    condition_start_date=substr(authored,1,10),
-    condition_end_date=substr(authored,1,10),
-    condition_type_concept_id="32879",
-    condition_source_value="emotional_h_not_as_meticulous_as_usual"
-  )%>%distinct()%>%bind_rows(conditions)
-
 conditions<-covid_19%>%
   filter(
     (
@@ -207,51 +118,8 @@ conditions<-covid_19%>%
     condition_source_value="pos_coronavirus_test|yes_pcr"
   )%>%distinct()%>%bind_rows(conditions)
 
-conditions<-patients%>%
-  filter(ra_crit_rheumatoid_factor=="positive")%>%
-  left_join(fvis)%>%
-  transmute(
-    patient_id,
-    condition_concept_id="4013263",
-    condition_start_date=substr(visit_date,1,10),
-    condition_end_date=condition_start_date,
-    condition_type_concept_id="32879",
-    condition_source_value="ra_crit_rheumatoid_factor_positive"
-  )%>%distinct()%>%bind_rows(conditions)
 
-conditions<-patients%>%
-  filter(ra_crit_rheumatoid_factor=="negative")%>%
-  left_join(fvis)%>%
-  transmute(
-    patient_id,
-    condition_concept_id="4014120",
-    condition_start_date=substr(visit_date,1,10),
-    condition_end_date=condition_start_date,
-    condition_type_concept_id="32879",
-    condition_source_value="ra_crit_rheumatoid_factor_negative"
-  )%>%distinct()%>%bind_rows(conditions)
 
-conditions<-patients%>%
-  filter(hla_b27=="positive")%>%
-  left_join(fvis)%>%
-  transmute(
-    patient_id,
-    condition_concept_id="46274008",
-    condition_start_date=substr(visit_date,1,10),
-    condition_end_date=condition_start_date,
-    condition_type_concept_id="32879",
-    condition_source_value="hla_b27_positive"
-  )%>%distinct()%>%bind_rows(conditions)
 
-conditions<-patients%>%
-  filter(hla_b27=="negative")%>%
-  left_join(fvis)%>%
-  transmute(
-    patient_id,
-    condition_concept_id="42537344",
-    condition_start_date=substr(visit_date,1,10),
-    condition_end_date=condition_start_date,
-    condition_type_concept_id="32879",
-    condition_source_value="hla_b27_negative"
-  )%>%distinct()%>%bind_rows(conditions)
+
 
