@@ -1,4 +1,4 @@
-#load from rdb, transform and load into an SQLite
+#load from RDB, transform and load into SQL
 
 #General summary of SCQM strucuture
 #A few per patient variables, pretty much the obvious stuff
@@ -21,37 +21,37 @@ library(RSQLite)
 
 #comments are in the respective files, though sometimes a shared explanation will be in an earlier code chunk.
 
-source("code/code_files/load_scqm_data.R")
+source("code/code_files/0_load_scqm_data.R")
 
-source("code/code_files/map_localizations.R")
+source("code/code_files/1_prepare_skeletons.R")
 
-source("code/code_files/create_skeletons.R")
 
-source("code/code_files/map_hi_system.R")
+source("code/code_files/2a_map_into_location.R")
 
-source("code/code_files/map_measurements.R")
+source("code/code_files/2b_map_from_HI_system.R")
 
-source("code/code_files/map_medi_system.R")
+source("code/code_files/2c_map_into_measurement.R")
 
-source("code/code_files/map_mixed_pro.R")
+source("code/code_files/2d1_map_from_medications_into_drug_exposure.R")
 
-source("code/code_files/map_observation_period.R")
+source("code/code_files/2d2_map_from_other_into_drug_exposure.R")
 
-source("code/code_files/map_other_conditions.R")
+source("code/code_files/2e_map_into_observation_period.R")
 
-source("code/code_files/map_other_medi.R")
+source("code/code_files/2f_map_into_person.R")
 
-source("code/code_files/map_other_observations.R")
+source("code/code_files/2g_map_into_visit_occurrence.R")
 
-source("code/code_files/map_person.R")
+source("code/code_files/2h_map_into_specimen.R")
 
-source("code/code_files/map_puppets.R")
+source("code/code_files/2i1_map_into_condition_occurrence.R")
 
-source("code/code_files/map_visit_occurrence.R")
+source("code/code_files/2i2_map_from_puppets_into_condition_occurrence.R")
 
-source("code/code_files/map_specimen.R")
+source("code/code_files/2j_map_into_observation.R")
 
-source("code/code_files/finish_and_clean.R")
+
+source("code/code_files/3_combine_and_adjust.R")
 
 tables=c(
   "person",
@@ -81,12 +81,12 @@ tables_uncleaned=c(
   "specimen"
 )
 
-#snapshot so Pierre can fix smaller things:
+#snapshot. Last step is done on different machine.
 save(list = tables_uncleaned,file = "before_last_step.Rdata")
 
 warning("at this point move to remote instance!")
 
-source("code/code_files/proper_types.R")
+source("code/code_files/4_finalization.R")
 
 #for ease of checking, thus now commented out
 # save(

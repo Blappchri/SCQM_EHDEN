@@ -1,7 +1,81 @@
-#Things that belong in the conditions table but are not tracked in the HI system
+#Things that belong in the conditions table but are neither tracked in the HI system nor part of the puppets in script 2i2
 #Some are per-visit, some are PRO
 #Probably the most 'Why didn't you create a function file?'-file, but there is special stuff and exceptions everywhere.
 
+# derive condition_occurrence from patients
+patients_for_co <- patients %>% 
+  select(patient_id, starts_with("diagnose_"), starts_with("date_first")&!
+           ends_with("_unknown"), uid) %>% left_join(fvis)%>%
+  mutate(
+    condition_occurrence_id=NA,
+    pat_uid=uid,
+    patient_id,
+    condition_concept_id = case_when(
+      diagnose_rheumatoid_arthritis=="yes" ~ as.integer(80809),
+      diagnose_ankylosing_spondylitis=="yes" ~ as.integer(437082),
+      diagnose_psoriasis_arthritis=="yes" ~ as.integer(40319772),
+      diagnose_undifferentiated_arthritis=="yes" ~ as.integer(4220761),
+      diagnose_giant_cell_arteritis=="yes"&diagnose_polymyalgia_rheumatica=="yes" ~
+        as.integer(4343935),
+      diagnose_giant_cell_arteritis=="yes"&is.na(diagnose_polymyalgia_rheumatica) ~
+        as.integer(4347064),
+      is.na(diagnose_giant_cell_arteritis)&diagnose_polymyalgia_rheumatica=="yes" ~
+        as.integer(255348),
+      TRUE ~ NA_integer_
+    ),
+    condition_source_value = case_when(
+      diagnose_rheumatoid_arthritis=="yes" ~ 
+        "diag_rheumatoid_arthritis",
+      diagnose_ankylosing_spondylitis=="yes" ~ 
+        "diag_ankylosing_spondylitis",
+      diagnose_psoriasis_arthritis=="yes" ~ 
+        "diag_psoriasis_arthritis",
+      diagnose_undifferentiated_arthritis=="yes" ~ 
+        "diag_undifferentiated_arthritis",
+      diagnose_giant_cell_arteritis=="yes"&diagnose_polymyalgia_rheumatica=="yes" ~
+        "diag_GCA&polymyalgia_rheumatica",
+      diagnose_giant_cell_arteritis=="yes"&is.na(diagnose_polymyalgia_rheumatica) ~
+        "diag_giant_cell_arteritis",
+      is.na(diagnose_giant_cell_arteritis)&diagnose_polymyalgia_rheumatica=="yes" ~
+        "diag_polymyalgia_rheumatica",
+      TRUE ~ NA_character_
+    )) %>% 
+  filter(!is.na(condition_concept_id))
+
+# define condition_start_date
+patients_for_co %<>% 
+  mutate(
+    condition_start_date = case_when(
+      condition_concept_id%in%c(80809,437082,40319772,4220761)~
+        ymd(date_first_symptoms,truncated = 2),
+      condition_concept_id==4343935 ~ min(ymd(date_first_symptoms_gca,truncated = 2),
+                                          ymd(date_first_symptoms_pmr,truncated = 2),
+                                          na.rm = TRUE),
+      condition_concept_id==4347064 ~ ymd(date_first_symptoms_gca,truncated = 2),
+      condition_concept_id==255348 ~ ymd(date_first_symptoms_pmr,truncated = 2),
+      TRUE ~ ymd(visit_date)),
+    condition_start_date=case_when(
+      is.na(condition_start_date)~ymd(visit_date),
+      TRUE~condition_start_date
+    ),
+    condition_type_concept_id = 32879
+  )
+
+first_cond_chuck<-patients_for_co%>%
+  select(patient_id,condition_occurrence_id:condition_type_concept_id)%>%
+  distinct()%>%
+  mutate(
+    condition_concept_id=as.character(condition_concept_id),
+    condition_type_concept_id=as.character(condition_type_concept_id),
+    condition_start_date=as.character(condition_start_date)
+  )
+
+# populate condition_occurrence
+conditions <- bind_rows(
+  conditions,
+  first_cond_chuck)
+
+#rest follows regular structure
 
 conditions<-mnyc_scoring%>%
   transmute(

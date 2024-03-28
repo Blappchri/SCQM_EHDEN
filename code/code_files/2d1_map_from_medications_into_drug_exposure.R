@@ -4,7 +4,7 @@
 # based on conversation on https://forums.ohdsi.org/ we do:
 # map to broader concepts instead of the packages
 # map our x dose per y days to weird dose batches
-# treat each stretch of unchanged medi usage as one big batch, meaning we have entries with kilograms of medication
+# treat each stretch of unchanged medi usage as one big batch, meaning we have entries with kilos of medication
 
 mapping_original_drugs <- "code/help_files/medication_system_mapping.csv"
 d.drugs <- read_csv(mapping_original_drugs)

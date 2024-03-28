@@ -1,3 +1,7 @@
+### load intermediate data
+load("before_last_step_21.03.2024.Rdata")
+
+### actual script
 #Could be integrated in the last step, but this also nicely served for checking things
 
 #due to sqlite we use ISO instead of a date tyoe
@@ -12,7 +16,7 @@ person<-person%>%transmute(
   ethnicity_concept_id=as.integer(0),
   location_id=NA_integer_,
   provider_id=NA_integer_,
-  care_site_id_=NA_integer_,
+  care_site_id=NA_integer_,
   person_source_value,
   gender_source_value=NA_character_,
   gender_source_concept_id=NA_integer_,
@@ -65,7 +69,7 @@ condition_occurrence<-condition_occurrence%>%transmute(
   condition_end_date=as.character(condition_start_date),
   condition_end_datetime=NA_integer_,
   condition_type_concept_id=as.integer(condition_type_concept_id),
-  condition_status_sconcept_id=NA_integer_,
+  condition_status_concept_id=NA_integer_,
   stop_reason=NA_character_,
   provider_id=NA_integer_,
   visit_occurrence_id=NA_integer_,
@@ -118,7 +122,7 @@ procedure_occurrence<-procedure_occurence%>%transmute(
   quantity=NA_integer_,
   provider_id=NA_integer_,
   visit_occurrence_id=NA_integer_,
-  viist_detail_id=NA_integer_,
+  visit_detail_id=NA_integer_,
   procedure_source_value=NA_character_,
   procedure_source_concept_id=NA_character_,
   modifier_source_value=NA_character_
@@ -137,7 +141,7 @@ device_exposure<-device_exposure%>%transmute(
   device_type_concept_id=as.integer(device_type_concept_id),
   unique_device_id=NA_character_,
   production_id=NA_character_,
-  quantitiy=NA_integer_,
+  quantity=NA_integer_,
   provider_id=NA_integer_,
   visit_occurrence_id=NA_integer_,
   visit_detail_id=NA_integer_,
@@ -208,24 +212,24 @@ specimen<-specimen%>%transmute(
   specimen_id=as.integer(specimen_id),
   person_id=as.integer(person_id),
   specimen_concept_id=as.integer(specimen_concept_id),
-  specimen_type_concept_id=as.integer(specimen_concept_id),
+  specimen_type_concept_id=as.integer(specimen_type_concept_id),
   specimen_date=as.character(specimen_date),
   specimen_datetime=NA_character_,
   quantity,
   unit_concept_id=NA_integer_,
   anatomic_site_concept_id=NA_integer_,
-  disease_status_sconcept_id=NA_integer_,
+  disease_status_concept_id=NA_integer_,
   specimen_source_id=NA_character_,
   specimen_source_value,
   unit_source_value=NA_character_,
   anatomic_site_source_value=NA_character_,
-  disease_Status_source_value=NA_character_
+  disease_status_source_value=NA_character_
 )
 
 summary(specimen)
 
 location<-location%>%transmute(
-  location_id<-as.integer(location_id),
+  location_id=as.integer(location_id),
   address_1=NA_character_,
   address_2=NA_character_,
   city=NA_character_,
@@ -239,3 +243,44 @@ location<-location%>%transmute(
   longitude=NA_integer_
 )
 
+cdm_source=data.frame(
+  cdm_source_name="scqm",
+  cdm_source_abbreviation="scqm",
+  cdm_holder="scqm",
+  source_description=NA_character_,
+  source_documentation_reference=NA_character_,
+  cdm_etl_reference=NA_character_,
+  source_release_date=today(),# sometimes wrong
+  cdm_release_date=today(),
+  cdm_version="5.4",#ignore that the documentation calls this voluntary due to what is below. STUFF WILL NOT WORK HAVING BOTH
+  cdm_version_concept_id=as.integer(756265),
+  vocabulary_version="result: NA"
+)
+
+#forgot that this was directly within the main script
+tables=c(
+  "person", 					
+  "location", 					
+  "observation_period", 		
+  "visit_occurrence", 			
+  "condition_occurrence", 		
+  "drug_exposure", 				
+  "procedure_occurrence", 		
+  "device_exposure", 			
+  "measurement", 				
+  "observation", 				
+  "specimen",
+  "cdm_source"
+)
+
+con<-dbConnect(drv=RPostgres::Postgres(),
+               user="postgres",
+               password="",
+               dbname="cdm",
+               host="localhost",
+               port=5432
+)
+for (a in tables) {
+  dbExecute(con, paste0("DELETE FROM ", a, ";"))
+  dbWriteTable(con,a,parse(text = a)%>%eval(),overwrite=FALSE, append=TRUE)
+}
