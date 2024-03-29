@@ -103,15 +103,15 @@ source("code/code_files/4_finalization.R")
 #   person,
 #   file = paste0("data/EHDEN_Data_",snapshot,".Rdata"))
 
-stor <- dbConnect(SQLite(), "data/SCQM_EHDEN.sqlite")
+#stor <- dbConnect(SQLite(), "data/SCQM_EHDEN.sqlite")
 
-for (a in tables) {
-  dbWriteTable(stor, a, parse(text = a)%>%eval(),overwrite=TRUE)
-}
+#for (a in tables) {
+#  dbWriteTable(stor, a, parse(text = a)%>%eval(),overwrite=TRUE)
+#}
 
-dbGetQuery(stor,"SELECT sql 
-FROM sqlite_schema 
-WHERE tbl_name = 'person';")
+#dbGetQuery(stor,"SELECT sql 
+#FROM sqlite_schema 
+#WHERE tbl_name = 'person';")
 
 #for the summary
 # output_summary<-data.frame(
