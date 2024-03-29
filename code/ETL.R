@@ -1,13 +1,13 @@
 #load from RDB, transform and load into SQL
 
 #General summary of SCQM strucuture
-#A few per patient variables, pretty much the obvious stuff
-#Lots of information from doctors collected at certain visits
-#Lots of information from patient collected close to visits via app questionnaires
-#Lots of information from patients collected weekly or monthly via app questionnaires separate from any visit
+#A few patient variables, mainly socio-demographics
+#Information from doctors collected at certain visits
+#Information from patient collected close to visits via app questionnaires
+#Information from patients collected weekly or monthly via app questionnaires separate from any visit
 #A medication system where for a selected list of medications a list per patient exists with start, stop, dosage and frequency
 #A health_issue system similar to the medications. Does not use a standardised vocabulary unfortunately
-#Some weird odds and ends like biokits or images that should not really matter
+#Extra informations like biokits or images that were not mapped
 
 snapshot<-"2023-12-01"
 
