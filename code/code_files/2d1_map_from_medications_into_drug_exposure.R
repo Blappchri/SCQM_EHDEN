@@ -1,10 +1,12 @@
 # Map our system for drugs of vital relevance
-# Here we needed to do a bunch of workarounds. OMOP expects apothecary information, which we do not have. What we have is:
-#from a to either b or their most recent visit a patients took dosage x of drug y each z days.
+# Note that OMOP expects apothecary information, which we do not have. What we have is:
+# from first_date to either second_date or their most recent visit, a patient took dosage x of drug y each z days.
 # based on conversation on https://forums.ohdsi.org/ we do:
 # map to broader concepts instead of the packages
-# map our x dose per y days to weird dose batches
-# treat each stretch of unchanged medi usage as one big batch, meaning we have entries with kilos of medication
+# map our x dose per y days to dose batches 
+# treat each stretch of unchanged medication usage as one big batch
+# -> Note that this led to higher quantity, later forcing us to adjust thresholds for drug_quantity
+# since we have entries with kilos of medication due to the long time period
 
 mapping_original_drugs <- "code/help_files/medication_system_mapping.csv"
 d.drugs <- read_csv(mapping_original_drugs)
@@ -13,10 +15,9 @@ not_freetext<-medications%>%filter(!is.na(medication_drug_classification))%>%sel
 
 medications<-medications%>%filter(medication_id%in%not_freetext$medication_id)
 
-#to standardise things a bit
 d.drugs$conceptId[grepl("90",d.drugs$conceptName)]<-"42925112"
 
-# correct missing values in sourceName (caused by adoption of DB2)
+# correct missing values in sourceName (caused by adoption of date base 2 - DB2 - in SCQM)
 d.drugs<-d.drugs %>% 
   mutate(sourceName = case_when(
     is.na(sourceName) ~ `ADD_INFO:drug`,
@@ -30,7 +31,7 @@ d.drugs<-d.drugs %>%
 
 
 ### update drugs ----
-# harmonise to DB3 format
+# harmonise to Data base 3 - DB3 - format
 medications_for_me <- medications %>% 
   filter(!is.na(medication_start_date))%>%
   mutate(
