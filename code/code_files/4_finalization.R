@@ -2,9 +2,9 @@
 load("before_last_step_21.03.2024.Rdata")
 
 ### actual script
-#Could be integrated in the last step, but this also nicely served for checking things
+#Could be integrated in the last step, but this also nicely serves for checking things
 
-#due to sqlite we use ISO instead of a date tyoe
+#we use ISO instead of a date tyoe
 person<-person%>%transmute(
   person_id=as.integer(person_id),
   gender_concept_id=as.integer(gender_concept_id),
@@ -252,9 +252,9 @@ cdm_source=data.frame(
   cdm_etl_reference=NA_character_,
   source_release_date=today(),# sometimes wrong
   cdm_release_date=today(),
-  cdm_version="5.4",#ignore that the documentation calls this voluntary due to what is below. STUFF WILL NOT WORK HAVING BOTH
+  cdm_version="5.4",#since CDM_version is hard coded, will need to be changed manually (as indicated in README) 
   cdm_version_concept_id=as.integer(756265),
-  vocabulary_version="result: NA"
+  vocabulary_version="v5.0 29-FEB-24" #since voc_version is hard coded, will need to be changed manually (as indicated in README) 
 )
 
 #forgot that this was directly within the main script
