@@ -14,10 +14,10 @@ snapshot<-"2023-12-01"
 library(dplyr)
 library(lubridate)
 library(magrittr)
-library(scqm.dev)#not openly available atm, but any function used from there should be pretty simple and have a nice name
+library(scqm.dev)#not openly available, but SCQM will run the ETL and uses some internal functions. They have names indicating their use.
 library(readr)
 library(DBI)
-library(RSQLite)
+
 
 #comments are in the respective files, though sometimes a shared explanation will be in an earlier code chunk.
 
