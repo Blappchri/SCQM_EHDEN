@@ -1,5 +1,7 @@
- # Maps information from our health issue system into the appropiate OMOP tables. HI are one of the few components that is independent of visits in our systems. They are pretty close to how OMOP events work, with the exception that we also have NO events marking a patient that is sure to have been healthy. We usually do not make the No Record->No Problem assumption.
-
+# Maps information from our health issue system into the appropiate OMOP tables. 
+# HI are one of the few components that is independent of visits in our systems. 
+# Close to how OMOP events work, except we also have NO events marking a patient sure to have been healthy. 
+# We usually do not make the No Record -> No Problem assumption.
 
 # add information from health_issues
 ihi_path <- "code/help_files/health_issue_system_mapping.csv"
@@ -45,7 +47,6 @@ ihi_for_o <- d.ihi_data_mapped_joined %>%
 
 ihi_for_po <- d.ihi_data_mapped_joined %>% 
   filter(domainId=="Procedure")
-
 
 # prepare dates for imputation
 unique(nchar(ihi_for_co$health_issue_date))
