@@ -1,4 +1,3 @@
-#just some logistics
 #makes sure all the names are correct, all the ids are fully replaced etc.
 
 #nrow(person)
