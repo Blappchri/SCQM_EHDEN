@@ -1,4 +1,4 @@
-#Our information is not very detailed here. Note that the very *proper* names are applied at the end for all the objects and columns
+# Proper names are applied at the end for all the objects and columns
 
 location<-visits%>%select(institution)%>%distinct()%>%mutate(
   location_id=NA,
