@@ -1,6 +1,7 @@
-#Maps some very straightforward lab stuff, the DAS and other easy clinical stuff as well as PRO
-# This file introduces the pattern that most of the rest of this code will have. At the time I felt that there were enough idiosyncrasies to everything that a function would be awkward. Surprisingly I have not *not* ended up regretting this decision during development, but it means that this code is a bit 'copy-paste'-ish.
-#Dates are mostly complete, but we apply a mid imputation everywhere just to be sure 
+#Maps some very straightforward laboratory information, the disease activity scale (DAS) 
+# and other easy clinical stuff as well as patient-reported outcomes.
+# This file introduces the pattern that most of the rest of this code will have. 
+# Dates are mostly complete, but, if missing, we apply a mid imputation everywhere 
 
 measurements<-visits%>%transmute(
   patient_id,
@@ -125,7 +126,6 @@ measurements<-visits%>%transmute(
   measurement_source_value="das283crp_score|das283bsr_score"
 )%>%distinct()%>%filter(!is.na(value_as_number))%>%bind_rows(measurements)
 
-
 measurements<-patients%>%left_join(fvis)%>%transmute(
   patient_id,
   measurement_concept_id="3041391",
@@ -186,7 +186,6 @@ measurements<-patients%>%
     measurement_source_value="ra_crit_rheumatoid_factor_negative",
     value_as_concept_id="9189"
   )%>%distinct()%>%bind_rows(measurements)
-
 
 measurements<-visits%>%transmute(
   patient_id,
